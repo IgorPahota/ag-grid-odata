@@ -49,8 +49,8 @@ export declare class OdataProviderOptions {
        beforeSetSecondaryColumns(col.children)
      } else {
        //Aplly new setting for group dyncamic created column
-       // col.cellClassRules = 
-       // col.valueFormatter = 
+       // col.cellClassRules =
+       // col.valueFormatter =
      }
    }
  }
@@ -64,7 +64,7 @@ export declare class OdataProviderOptions {
   * @param options odata provider options
   * @param rowData data for ag-grid
   * @param totalCount total count records
-  * 
+  *
   * @example
   * <pre><code>
        afterLoadData = (options, rowData, totalCount) => {
@@ -146,8 +146,8 @@ export class OdataProvider implements OdataProviderOptions {
          beforeSetSecondaryColumns(col.children)
        } else {
          //Aplly new setting for group dyncamic created column
-         // col.cellClassRules = 
-         // col.valueFormatter = 
+         // col.cellClassRules =
+         // col.valueFormatter =
        }
      }
    }
@@ -161,7 +161,7 @@ export class OdataProvider implements OdataProviderOptions {
     * @param options odata provider options
     * @param rowData data for ag-grid
     * @param totalCount total count records
-    * 
+    *
     * @example
     * <pre><code>
          afterLoadData = (options, rowData, totalCount) => {
@@ -382,6 +382,9 @@ export class OdataProvider implements OdataProviderOptions {
     if (options.expand && options.expand.length > 0) {
       path.push("$expand=" + options.expand.join(","));
     }
+    if (options.select && options.select.length > 0) {
+      path.push("$select=" + options.select.join(","));
+    }
     let query: string = "";
     if (path.length > 0) {
       query = "?" + path.join("&");
@@ -407,16 +410,16 @@ export class OdataProvider implements OdataProviderOptions {
     return dt1.toISOString();
   };
   /**
-   * 
+   *
    * @param colName columnName
    * @returns is CaseSensitive for column
    */
   private getIsNeedCaseSensitive =(colName: string)=>{
-    if(!this.isCaseSensitiveStringFilter && 
+    if(!this.isCaseSensitiveStringFilter &&
       this.caseSensitiveColumns &&
       this.caseSensitiveColumns.length > 0){
       return this.caseSensitiveColumns.indexOf(colName) >= 0;
-    } 
+    }
     return this.isCaseSensitiveStringFilter;
   }
   /**
@@ -453,7 +456,7 @@ export class OdataProvider implements OdataProviderOptions {
           );
         }
         case "date":
-          if (col.dateFrom != null  && me.toDateTime(col.dateFrom) != null && 
+          if (col.dateFrom != null  && me.toDateTime(col.dateFrom) != null &&
           (col.dateTo== null || (col.dateTo != null && me.toDateTime(col.dateTo) != null)) ){
             return me.odataOperator[col.type](
               colName,
@@ -479,7 +482,7 @@ export class OdataProvider implements OdataProviderOptions {
 
   /**
    * Extract value from record by path to field
-   * @param field path to column value 
+   * @param field path to column value
    * @param obj  record
    */
   private getValue(field: string, obj : any): any{
@@ -708,10 +711,10 @@ export class OdataProvider implements OdataProviderOptions {
 
   /**
      * Calculate distinct values for input field from Odata api
-     * @param field The field of the row to get the cells data from 
+     * @param field The field of the row to get the cells data from
      * @param callback The function for return distinct values for input field
      * @param beforeRequest The function for customize request
-     * @example 
+     * @example
      * <pre><code>
      *  const setFilterValuesFuncParams = params => {
      *    const me = this
@@ -725,7 +728,7 @@ export class OdataProvider implements OdataProviderOptions {
      *    }
      *    odataProviderInstance.getFilterValuesParams(params.colDef.field, callback)
      *  }
-     * 
+     *
      * ///....
      *      <AgGridColumn
                   field="product"
@@ -1065,6 +1068,7 @@ export class OdataProvider implements OdataProviderOptions {
       options.apply = apply;
       delete options.filter;
       delete options.expand;
+      delete options.select;
       // options.sort = null;
     }
     options.skip = request.startRow;
@@ -1086,10 +1090,10 @@ export class OdataProvider implements OdataProviderOptions {
 export class OdataProviderClient extends OdataProvider {
   public override getRows (params: IServerSideGetRowsParams){
     super.getRows(params);
-  } 
-} 
+  }
+}
 export class OdataServerSideProvider  extends OdataProvider {
   public override getRows (params: IServerSideGetRowsParams): void {
     super.getRows(params);
-  } 
-} 
+  }
+}

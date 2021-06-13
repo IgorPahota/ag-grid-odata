@@ -1,10 +1,11 @@
 import {ColumnVO } from '@ag-grid-community/all-modules'
 
-export interface OdataQueryOptions{
-    sort? : Array<string>;
-    filter? : Array<string>;
-    expand? : Array<string>;
-} 
+export interface OdataQueryOptions {
+    sort?: Array<string>;
+    filter?: Array<string>;
+    expand?: Array<string>;
+    select?: Array<string>;
+}
 export interface OdataQueryExtendOptions extends OdataQueryOptions{
     skip? : number;
     top? : number;
